@@ -3,21 +3,23 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_chords/internet_related/firebase/firebase_controller.dart';
+import 'package:smart_chords/models/AvailableSongsList.dart';
 import 'package:smart_chords/screens/available_songs_screen.dart';
+
+import 'controllers/available_songs_list_notifier.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   final camera = await availableCameras().then((value) => value[1]);
-  final songs = await FirebaseController().getData();
-  final songsProvider = Provider((_) => songs);
-  final cameraProvider = Provider((_) => camera);
+  final songsProvider =
+      StateNotifierProvider<AvailableSongsListNotifier, AvailableSongsList>(
+          (_) => AvailableSongsListNotifier());
 
   runApp(
     MaterialApp(
       theme: ThemeData(
           primaryColor: Colors.deepPurpleAccent,
+          brightness: Brightness.light,
           textTheme: const TextTheme(
             displayLarge: TextStyle(
                 fontSize: 64.0,
@@ -38,7 +40,7 @@ Future<void> main() async {
         ),
         body: ProviderScope(
             child: AvailableSongsScreen(
-                songsProvider: songsProvider, cameraProvider: cameraProvider)),
+                songsProvider: songsProvider, camera: camera)),
       ),
     ),
   );
