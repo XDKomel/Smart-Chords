@@ -20,6 +20,10 @@ The songs are stored on Firebase Firestore
 
 It uses the [eye tracking API](https://rapidapi.com/smartclick-smartclick-default/api/eye-tracking-and-gaze-detection) with the [IMGBB](https://api.imgbb.com/) to store temporary images.
 
+## What architectural decisions have been made?
+
+The app uses Riverpod with the default setState, and the UI files are separated from logic, so each screen has its own controller.
+
 ## IT WORKS WITH iOS!!!
 
 ## IT USES A CUSTOM THEME 
