@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1041511516224",
+    "project_id": "smart-chords",
+    "storage_bucket": "smart-chords.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041511516224:android:ea3c776c992079bdf777a5",
+        "android_client_info": {
+          "package_name": "com.example.smart_chords"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1041511516224-r5csfes75d9empo34jo7o8lpojelpqhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXzYqJ8fiqOIBG_SmujYTESbEomF5Nqz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1041511516224-r5csfes75d9empo34jo7o8lpojelpqhg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1041511516224-ascqrhigli01ct9cvcpprd2mlokp14lg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartChords"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
