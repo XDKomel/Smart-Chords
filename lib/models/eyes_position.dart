@@ -5,10 +5,10 @@ class EyesPosition {
   EyesPosition(this.left, this.right);
 
   double average() {
-    return left + right / 2;
+    return (left + right) / 2;
   }
 
-  operator -(EyesPosition other) {
+  double operator -(EyesPosition other) {
     return average() - other.average();
   }
 }

@@ -1,26 +1,35 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_chords/controllers/song_chords_controller.dart';
 
+import '../di.dart';
 import '../models/song_model.dart';
 
-class SongChordsScreen extends StatefulWidget {
-  const SongChordsScreen({super.key, required this.camera, required this.song});
+class SongChordsScreen extends ConsumerStatefulWidget {
+  const SongChordsScreen({super.key, required this.song});
 
-  final CameraDescription camera;
   final SongModel song;
 
   @override
   SongChordsScreenState createState() => SongChordsScreenState();
 }
 
-class SongChordsScreenState extends State<SongChordsScreen> {
-  final controller = SongChordsController();
+class SongChordsScreenState extends ConsumerState<SongChordsScreen> {
+  late final SongChordsController controller;
+  final scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    controller.initState(widget.camera, mounted, true);
+    controller = SongChordsController(scrollController);
+    initCamera();
+    controller.initState(ref.read(DI.centerPositionProvider.notifier));
+  }
+
+  void initCamera() async {
+    final camera = await availableCameras().then((value) => value[1]);
+    ref.read(DI.cameraProvider.notifier).state = camera;
   }
 
   @override
@@ -31,33 +40,53 @@ class SongChordsScreenState extends State<SongChordsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.song.name),
-        ),
-        body: FutureBuilder<void>(
-          future: controller.initializeControllerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
+    final initialFreeSpace = MediaQuery.of(context).size.height / 3;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final camera = ref.watch(DI.cameraProvider);
+    controller.provideCamera(camera);
+    return Stack(children: [
+      Scaffold(
+          appBar: AppBar(
+            title: Text(widget.song.name),
+          ),
+          body: FutureBuilder<void>(
+            future: controller.initializeControllerFuture,
+            builder: (context, snapshot) {
               return SingleChildScrollView(
-                controller: controller.scrollController,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height / 4,
-                    ),
-                    Text(
-                      widget.song.content.replaceAll("\\n", '\n'),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ],
+                controller: scrollController,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: initialFreeSpace,
+                      ),
+                      Text(
+                        widget.song.content,
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
                 ),
               );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          },
-        ));
+            },
+          )),
+      AnimatedOpacity(
+        opacity:
+            camera != null && !ref.watch(DI.centerPositionProvider) ? 1 : 0,
+        duration: const Duration(milliseconds: 200),
+        child: Column(
+          children: [
+            SizedBox(height: initialFreeSpace),
+            Container(
+              width: screenWidth,
+              height: 4,
+              color: Colors.redAccent,
+            )
+          ],
+        ),
+      )
+    ]);
   }
 }

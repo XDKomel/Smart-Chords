@@ -1,20 +1,12 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_chords/models/AvailableSongsList.dart';
-
-import '../controllers/available_songs_list_notifier.dart';
+import '../controllers/available_songs_list_controller.dart';
 import '../components/song_widget.dart';
-import '../models/song_model.dart';
+import '../di.dart';
 
 class AvailableSongsScreen extends ConsumerStatefulWidget {
-  const AvailableSongsScreen(
-      {super.key, required this.songsProvider, required this.camera});
-
-  final StateNotifierProvider<AvailableSongsListNotifier, AvailableSongsList>
-      songsProvider;
-  final CameraDescription camera;
+  const AvailableSongsScreen({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -22,16 +14,25 @@ class AvailableSongsScreen extends ConsumerStatefulWidget {
 }
 
 class AvailableSongsScreenState extends ConsumerState<AvailableSongsScreen> {
+  final controller = AvailableSongsListController();
+
   @override
   void initState() {
     super.initState();
-    ref.read(widget.songsProvider.notifier).updateList();
+    updateList();
+  }
+
+  Future<void> updateList() async {
+    ref.read(DI.songsProvider.notifier).state = await controller.updateList();
   }
 
   @override
   Widget build(BuildContext context) {
-    final songs = ref.watch(widget.songsProvider);
-    if (songs.songs.isEmpty) {
+    final songs = ref.watch(DI.songsProvider);
+    if (songs == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (songs.isEmpty) {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -39,7 +40,7 @@ class AvailableSongsScreenState extends ConsumerState<AvailableSongsScreen> {
             const Text("No internet connection"),
             ElevatedButton(
                 onPressed: () {
-                  ref.read(widget.songsProvider.notifier).updateList();
+                  updateList();
                 },
                 child: const Text("Refresh"))
           ],
@@ -47,15 +48,9 @@ class AvailableSongsScreenState extends ConsumerState<AvailableSongsScreen> {
       );
     }
     return ListView(
-      children: ListTile.divideTiles(
-          context: context,
-          tiles: songs.songs.map((e) => SongWidget(
-                song: SongModel(
-                    author: e["author"],
-                    content: e["content"],
-                    name: e["name"]),
-                camera: widget.camera,
-              ))).toList(),
-    );
+        children: ListTile.divideTiles(
+                context: context,
+                tiles: songs.map((song) => SongWidget(song: song)).toList())
+            .toList());
   }
 }
