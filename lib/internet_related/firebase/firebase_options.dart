@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1041511516224',
     projectId: 'smart-chords',
     storageBucket: 'smart-chords.appspot.com',
-    iosClientId: '1041511516224-ascqrhigli01ct9cvcpprd2mlokp14lg.apps.googleusercontent.com',
+    iosClientId:
+        '1041511516224-ascqrhigli01ct9cvcpprd2mlokp14lg.apps.googleusercontent.com',
     iosBundleId: 'com.example.smartChords',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1041511516224',
     projectId: 'smart-chords',
     storageBucket: 'smart-chords.appspot.com',
-    iosClientId: '1041511516224-ascqrhigli01ct9cvcpprd2mlokp14lg.apps.googleusercontent.com',
+    iosClientId:
+        '1041511516224-ascqrhigli01ct9cvcpprd2mlokp14lg.apps.googleusercontent.com',
     iosBundleId: 'com.example.smartChords',
   );
 }
