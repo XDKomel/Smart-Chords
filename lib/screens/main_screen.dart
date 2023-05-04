@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localization/localization.dart';
 
 import 'available_songs_screen.dart';
@@ -12,6 +11,6 @@ class MainScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text("title".i18n()),
         ),
-        body: const ProviderScope(child: AvailableSongsScreen()),
+        body: const AvailableSongsScreen(),
       );
 }

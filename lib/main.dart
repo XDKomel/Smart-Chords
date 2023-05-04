@@ -5,8 +5,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:localization/localization.dart';
-import 'package:smart_chords/screens/available_songs_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:smart_chords/screens/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,12 +49,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.deepPurpleAccent,
           useMaterial3: true,
           brightness: Brightness.dark),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("title".i18n()),
-        ),
-        body: const ProviderScope(child: AvailableSongsScreen()),
-      ),
+      home: const ProviderScope(child: MainScreen()),
     );
   }
 }
