@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCDTLH30_s16afzfVzjbo9La2BaZxhuXKI',
+    appId: '1:1041511516224:web:9c3a19139ada6271f777a5',
+    messagingSenderId: '1041511516224',
+    projectId: 'smart-chords',
+    authDomain: 'smart-chords.firebaseapp.com',
+    storageBucket: 'smart-chords.appspot.com',
+    measurementId: 'G-RJ81ZSTF3Y',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAXzYqJ8fiqOIBG_SmujYTESbEomF5Nqz8',
     appId: '1:1041511516224:android:ea3c776c992079bdf777a5',
@@ -58,6 +62,16 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBWB7hMA4WZchzEDo6uaazRDGm2GCirlyw',
+    appId: '1:1041511516224:ios:0e92cec8f757925df777a5',
+    messagingSenderId: '1041511516224',
+    projectId: 'smart-chords',
+    storageBucket: 'smart-chords.appspot.com',
+    iosClientId: '1041511516224-ascqrhigli01ct9cvcpprd2mlokp14lg.apps.googleusercontent.com',
+    iosBundleId: 'com.example.smartChords',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBWB7hMA4WZchzEDo6uaazRDGm2GCirlyw',
     appId: '1:1041511516224:ios:0e92cec8f757925df777a5',
     messagingSenderId: '1041511516224',

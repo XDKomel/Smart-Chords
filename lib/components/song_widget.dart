@@ -23,6 +23,7 @@ class SongWidget extends ConsumerWidget {
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       onTap: () {
+        // throw Exception();
         Navigator.push(
           context,
           MaterialPageRoute(

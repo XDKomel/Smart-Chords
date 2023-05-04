@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:localization/localization.dart';
 import '../controllers/available_songs_list_controller.dart';
 import '../components/song_widget.dart';
 import '../di.dart';
@@ -37,12 +39,12 @@ class AvailableSongsScreenState extends ConsumerState<AvailableSongsScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text("No internet connection"),
+            Text("no-internet-connection".i18n()),
             ElevatedButton(
                 onPressed: () {
                   updateList();
                 },
-                child: const Text("Refresh"))
+                child: Text("refresh".i18n()))
           ],
         ),
       );
