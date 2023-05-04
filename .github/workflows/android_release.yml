@@ -44,3 +44,17 @@ jobs:
 
       - name: Start release build
         run: flutter build appbundle
+        
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.0.0"
+          channel: 'stable'
+          cache: true
+          
+      - name: Test modules and UI
+        run: flutter test
