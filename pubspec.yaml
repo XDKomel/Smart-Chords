@@ -51,8 +51,6 @@ dependencies:
   localization: ^2.1.0
 
 dev_dependencies:
-  flutter_launcher_icons: "^0.13.0"
-
   flutter_test:
     sdk: flutter
 
