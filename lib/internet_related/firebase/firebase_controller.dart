@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseController {
-  FirebaseController();
+  final FirebaseFirestore _firestoreInstance;
+
+  FirebaseController(this._firestoreInstance);
+
   Future<Iterable<Map<String, dynamic>>> getData() async {
-    final db = FirebaseFirestore.instance;
-    return await db.collection("songs").get().then((value) {
+    return await _firestoreInstance.collection("songs").get().then((value) {
       return value.docs.map((e) => e.data());
     });
   }

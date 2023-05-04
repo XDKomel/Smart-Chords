@@ -23,7 +23,8 @@ class AvailableSongsScreenState extends ConsumerState<AvailableSongsScreen> {
   }
 
   Future<void> updateList() async {
-    ref.read(DI.songsProvider.notifier).state = await controller.updateList();
+    ref.read(DI.songsProvider.notifier).state =
+        await controller.updateList(ref.read(DI.firebaseControllerProvider));
   }
 
   @override

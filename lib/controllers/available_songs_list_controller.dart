@@ -1,12 +1,13 @@
+import 'package:smart_chords/internet_related/firebase/firebase_controller.dart';
 import 'package:smart_chords/models/song_model.dart';
 
-import '../internet_related/firebase/firebase_controller.dart';
 import 'dart:developer' as dev;
 
 class AvailableSongsListController {
-  Future<List<SongModel>> updateList() async {
+  Future<List<SongModel>> updateList(
+      FirebaseController firebaseController) async {
     try {
-      final newData = await FirebaseController().getData();
+      final newData = await firebaseController.getData();
       return newData
           .map((e) => SongModel(
               author: e["author"],
