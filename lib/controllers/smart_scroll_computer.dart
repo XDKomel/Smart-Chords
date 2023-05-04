@@ -5,8 +5,8 @@ class SmartScrollComputer {
   EyesPosition? _centralPosition;
   static const double defDistance = 15;
   static const double coefficient = 4.2;
-  double prevPosition = 0;
-  double errorDistance = 0;
+  double _prevPosition = 0;
+  double _errorDistance = 0;
   final int _feedbackTime;
 
   SmartScrollComputer(this._feedbackTime);
@@ -20,19 +20,19 @@ class SmartScrollComputer {
   double nextScrollPosition(EyesPosition? currentPosition,
       [double? newScrollPosition]) {
     if (_centralPosition != null && currentPosition != null) {
-      recomputeError(currentPosition);
+      _recomputeError(currentPosition);
     }
     final position = newScrollPosition == null
-        ? prevPosition + defDistance + errorDistance
-        : newScrollPosition + defDistance + errorDistance;
+        ? _prevPosition + defDistance + _errorDistance
+        : newScrollPosition + defDistance + _errorDistance;
     dev.log("Scroll position is $position");
-    prevPosition = position;
-    return prevPosition;
+    _prevPosition = position;
+    return _prevPosition;
   }
 
-  void recomputeError(EyesPosition currentPosition) {
+  void _recomputeError(EyesPosition currentPosition) {
     final error = currentPosition - _centralPosition!;
-    errorDistance = coefficient * error / (_feedbackTime);
-    dev.log("Error distance is $errorDistance for error equal $error");
+    _errorDistance = coefficient * error / (_feedbackTime);
+    dev.log("Error distance is $_errorDistance for error equal $error");
   }
 }

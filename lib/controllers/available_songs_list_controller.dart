@@ -1,7 +1,6 @@
 import 'package:smart_chords/internet_related/firebase/firebase_controller.dart';
 import 'package:smart_chords/models/song_model.dart';
 
-import '../di.dart';
 import 'dart:developer' as dev;
 
 class AvailableSongsListController {
