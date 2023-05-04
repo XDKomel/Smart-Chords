@@ -10,7 +10,7 @@ This app allows you to watch songs' chords, while it automatically scrolls them 
 
 ## Screens
 
-There are two screens: a list of all supported songs + the screen with chords 
+There are two screens: a list of all supported songs + the screen with chords. More screenshots are [on the drive](https://disk.yandex.com/d/eT2Or7zTcG8LbQ).
 
 ## How are songs stored
 
@@ -24,8 +24,8 @@ It uses the [eye tracking API](https://rapidapi.com/smartclick-smartclick-defaul
 
 The app uses Riverpod with the default setState, and the UI files are separated from logic, so each screen has its own controller.
 
-## IT WORKS WITH iOS!!!
+## IT WORKS WITH iOS and WEB!!!
 
-## IT USES A CUSTOM THEME 
+## IT USES A CUSTOM MATERIAL 3 THEME 
 
 ## [Recording and the APK](https://disk.yandex.com/d/eT2Or7zTcG8LbQ)
